@@ -1267,6 +1267,99 @@ const AMBIGUITIES = [
   '한국사 2 p.17(영화 「허스토리」) 영역은 지시에 따라 제외함.'
 ];
 
+/* part 4: OX quiz — every statement checked against the textbook text.
+   [module, statement, isTrue, explanation, page] */
+const OXQ = [
+  ['m1', '정부는 1880년대에 영어 교육 기관인 동문학과 서양 학문을 가르치는 육영 공원을 세웠다.', true, '교과서 서술 그대로입니다.', '1-137'],
+  ['m1', '원산 학사는 개신교 선교사 아펜젤러가 세운 학교이다.', false, '원산 학사는 함경도 덕원의 개화파 관료와 주민들이 세웠습니다. 아펜젤러가 세운 학교는 배재 학당(1885)입니다.', '1-137'],
+  ['m1', '배재 학당은 우리나라 최초의 근대식 사립 학교이다.', true, '1885년 아펜젤러가 세웠고, 고종이 교명을 짓고 현판을 내렸습니다.', '1-137'],
+  ['m1', '1908년 통감부는 사립 학교령을 공포하게 하여 사립 학교 설립을 장려하였다.', false, '사립 학교령은 사립 학교 설립을 제한하려는 법령이었습니다. 교과서 검정 제도도 함께 도입했습니다.', '1-137'],
+  ['m1', '신채호는 「독사신론」에서 민족을 역사 전개의 주체로 강조하였다.', true, '민족주의 역사 서술의 기본 틀을 제시했습니다.', '1-138'],
+  ['m1', '『국어문법』을 간행한 인물은 유길준이다.', false, '『국어문법』은 주시경입니다. 유길준은 『대한문전』을 펴냈습니다.', '1-138'],
+  ['m2', '한성순보는 우리나라 최초의 신문으로 순한글로 발행되었다.', false, '한성순보는 순 한문체였습니다. 순한글 신문은 독립신문·제국신문입니다.', '1-138'],
+  ['m2', '독립신문은 영문판으로도 발행되어 국내 사정을 외국인에게 알렸다.', true, '순한글판과 영문판을 함께 발행했습니다.', '1-138'],
+  ['m2', '황성신문은 국한문 혼용체로 발행되었다.', true, '외국의 독립·망국의 역사, 고대사 기사로 민족의식을 높이려 했습니다.', '1-138'],
+  ['m2', '대한매일신보는 양기탁과 베델이 1904년에 창간하였다.', true, '순한글·국한문·영문 세 종류로 발행했습니다.', '1-138'],
+  ['m2', '1898년 한성의 부인들은 「여권통문」을 발표하여 여성의 교육받을 권리를 주장하였다.', true, '황성신문(1898. 9. 8.)에 실린 자료입니다.', '1-139'],
+  ['m3', '일본은 한일 의정서로 한국 영토를 군사 기지로 사용할 권리를 얻었다.', true, '1904. 2. 한일 의정서 제4조 — 전략상 필요한 지점 사용.', '1-143'],
+  ['m3', '제1차 한일 협약으로 재정 고문 스티븐스, 외교 고문 메가타가 파견되었다.', false, '반대입니다. 재정 고문 메가타, 외교 고문은 미국인 스티븐스입니다.', '1-143'],
+  ['m3', '일본은 러일 전쟁 중 시마네현 고시로 독도를 불법 편입하였다.', true, '1905. 2. — 국제법상 명백한 불법 영토 침탈.', '1-143'],
+  ['m3', '정미 7조약의 부속 각서로 대한 제국의 군대가 해산되었다.', true, '부속 각서로 일본인 차관 임명과 군대 해산이 이루어졌습니다.', '1-144'],
+  ['m3', '간도 협약으로 일본은 간도 영유권을 차지하였다.', false, '일본은 남만주 철도 부설권·푸순 탄광 채굴권을 얻는 대신 간도 영유권을 청에 넘겨주었습니다.', '1-144'],
+  ['m3', '한국 병합 조약은 1910년 8월 22일에 체결되었다.', true, '이후 조선 총독이 최고 통치자로 군림했습니다.', '1-144'],
+  ['m4', '일본은 가쓰라·태프트 밀약으로 영국으로부터 한국 지배를 인정받았다.', false, '가쓰라·태프트 밀약은 미국(1905. 7.)입니다. 영국은 제2차 영일 동맹(1905. 8.)입니다.', '1-143'],
+  ['m4', '포츠머스 조약으로 러시아는 일본의 한국에 대한 지도·보호·감리권을 인정하였다.', true, '1905. 9. 미국의 중재로 체결.', '1-143'],
+  ['m4', '열강의 승인을 받은 뒤 일본은 1905년 11월 을사늑약을 강요하였다.', true, '7·8·9월 미·영·러 승인 → 11월 을사늑약.', '1-143'],
+  ['m4', '미국은 고종의 독립 지원 요청을 받아들여 일본에 항의하였다.', false, '미국은 이미 일본의 한국 지배를 승인한 뒤라 거부했습니다.', '1-144'],
+  ['m5', '을사늑약으로 대한 제국은 외교권을 빼앗기고 통감부가 설치되었다.', true, '초대 통감은 이토 히로부미입니다.', '1-143'],
+  ['m5', '을사늑약 원본에는 고종의 서명과 도장이 있다.', false, '외부대신 박제순의 도장만 있고 고종의 서명과 도장은 없습니다. 맨 앞장 조약 명칭 칸도 비어 있습니다.', '1-143'],
+  ['m5', '조약은 위임–조인–비준의 3단계를 거쳐야 성립한다.', true, '을사늑약은 위임과 비준이 없어 국제법상 무효입니다.', '1-143'],
+  ['m5', '헤이그 특사로 파견된 인물은 이준, 이상설, 이위종이다.', true, '1907년 제2회 만국 평화 회의.', '1-144'],
+  ['m5', '헤이그 특사는 회의에 정식으로 참석하여 을사늑약의 불법성을 연설하였다.', false, '외교권이 없다는 이유로 참석과 발언을 거부당했습니다. 회의장 밖 탄원서와 「만국 평화 회의보」로 폭로했습니다.', '1-144'],
+  ['m6', '을미의병은 을미사변과 단발령에 반발하여 일어났다.', true, '유인석·이소응 등 위정척사 유생이 주도했습니다.', '1-147'],
+  ['m6', '을사의병 때 평민 출신 의병장 신돌석이 활약하였다.', true, '경북 내륙과 동해안에서 활약, ‘태백산 호랑이’.', '1-147'],
+  ['m6', '최익현은 홍주성을 점령하였다가 일본군의 반격으로 패하였다.', false, '홍주성은 민종식입니다. 최익현은 태인에서 봉기해 체포된 뒤 쓰시마섬에서 순국했습니다.', '1-147'],
+  ['m6', '13도 창의군의 총대장은 이인영이다.', true, '각국 영사관에 교전 단체 인정을 요구하고 서울 진공 작전(1908)을 펼쳤습니다.', '1-148'],
+  ['m6', '안중근은 명동 성당 앞에서 이완용을 습격하였다.', false, '이완용을 습격한 것은 이재명입니다. 안중근은 1909년 하얼빈에서 이토 히로부미를 처단했습니다.', '1-149'],
+  ['m6', '전명운과 장인환은 샌프란시스코에서 스티븐스를 저격하였다.', true, '1908년의 일입니다.', '1-149'],
+  ['m7', '보안회는 일본의 황무지 개간권 요구를 철회시켰다.', true, '1904년 종로 대중 집회.', '1-150'],
+  ['m7', '헌정 연구회는 공화정 수립을 목표로 활동하였다.', false, '헌정 연구회는 입헌 군주제를 목표로 했습니다. 공화정을 추구한 단체는 신민회입니다.', '1-150'],
+  ['m7', '대한 자강회는 고종의 강제 퇴위 반대 시위를 주도하다 강제 해산되었다.', true, '1906년 결성, 월보 발행·전국 지회.', '1-150'],
+  ['m7', '대한 협회는 일진회와 연합하는 등 점차 성격이 바뀌었다.', true, '대한 자강회 인사와 천도교 간부가 조직(1907).', '1-150'],
+  ['m8', '신민회는 공개 단체로 조직되어 전국에 지회를 두었다.', false, '신민회는 비밀 결사입니다.', '1-151'],
+  ['m8', '신민회는 평양에 대성 학교, 정주에 오산 학교를 세웠다.', true, '태극 서관(출판), 자기 회사(산업)도 세웠습니다.', '1-151'],
+  ['m8', '국내의 신민회 조직은 105인 사건으로 해체되었다.', true, '일제가 조선 총독 암살 계획을 조작한 사건(1911).', '1-151'],
+  ['m8', '국채 보상 운동은 1907년 서울에서 김광제, 서상돈 등이 시작하였다.', false, '국채 보상 운동은 대구에서 시작되었습니다.', '1-151'],
+  ['m8', '대한 제국이 일본에 진 빚은 정부 1년 예산과 맞먹는 1,300만 원이었다.', true, '화폐 정리·정부 부채 정리 등 명목의 차관 강요 결과.', '1-151'],
+  ['m9', '1910년대 일제는 헌병 경찰을 앞세운 무단 통치를 실시하였다.', true, '1910년대 무단 통치 → 1920년대 ‘문화 정치’ → 1930~40년대 민족 말살 통치.', '2-8'],
+  ['m9', '1920년대 대표적인 경제 수탈 정책은 토지 조사 사업이다.', false, '토지 조사 사업은 1910년대입니다. 1920년대는 산미 증식 계획입니다.', '2-18'],
+  ['m9', '일제가 ‘문화 정치’로 바꾼 계기는 3·1 운동이다.', true, '무단 통치의 한계를 깨달았기 때문입니다.', '2-11'],
+  ['m10', '조선 총독은 현역 육해군 대장 가운데 임명되었다.', true, '일왕 직속, 행정·입법·사법·군 통수권.', '2-9'],
+  ['m10', '중추원은 한국인의 의견을 반영하는 입법 기관이었다.', false, '중추원은 총독부의 자문 기구로, 이완용·송병준 등 친일파로 구성되었습니다.', '2-9'],
+  ['m10', '조선 태형령은 한국인과 일본인 모두에게 적용되었다.', false, '“본령은 조선인에 한하여 적용한다”(제13조) — 한국인에게만 적용했습니다.', '2-10'],
+  ['m10', '무단 통치기 한국의 보통학교 수업 연한은 4년이었다.', true, '일본 학제와 달리 짧게 했습니다.', '2-9'],
+  ['m11', '토지 조사 사업은 기한 내에 소유자가 직접 신고하는 방식이었다.', true, '1912년 토지 조사령.', '2-18'],
+  ['m11', '토지 조사 사업으로 농민의 관습적 경작권이 법적으로 보장되었다.', false, '농민의 경작권은 인정받지 못했습니다. 이는 소작 쟁의의 배경이 되었습니다.', '2-19'],
+  ['m11', '회사령은 회사를 설립할 때 조선 총독의 허가를 받게 하였다.', true, '1910년 공포, 허가제.', '2-19'],
+  ['m11', '조선 식산 은행은 6개의 농공은행을 통합하여 설립되었다.', true, '1918년 조선 식산 은행령.', '2-19'],
+  ['m12', '‘문화 정치’ 시기에 실제로 여러 명의 문관 총독이 임명되었다.', false, '문관 총독은 단 한 명도 임명되지 않았습니다.', '2-12'],
+  ['m12', '보통 경찰제 도입 이후 경찰 관서와 인원, 비용은 3배 이상 늘었다.', true, '1918→1920: 기관 751→2,716, 인원 5,402→18,376, 비용 800→2,400만 원.', '2-13'],
+  ['m12', '도 평의회는 의결권을 가진 지방 의회였다.', false, '의결권이 없는 자문 기구였습니다.', '2-12'],
+  ['m12', '치안 유지법은 천황제나 사유 재산 제도를 부정하는 자를 단속하는 법이었다.', true, '1925년 시행, 사회주의 운동 탄압에 이용.', '2-12'],
+  ['m13', '산미 증식 계획으로 쌀 생산량은 목표만큼 늘었다.', false, '생산량은 목표만큼 늘지 않았지만 일본으로의 이출량은 해마다 늘었습니다.', '2-21'],
+  ['m13', '산미 증식 계획 때 저수지·제방을 만들려고 수리 조합을 조직하였다.', true, '수리 조합비는 농민 부담이 되었습니다.', '2-21'],
+  ['m13', '1920년 회사령이 폐지되어 회사 설립이 신고제로 바뀌었다.', true, '미쓰이·미쓰비시 등 일본 대기업이 진출했습니다.', '2-22'],
+  ['m13', '일제는 1928년 한국과 일본 사이의 관세를 폐지하였다.', false, '관세 폐지는 1923년입니다. 1928년은 신은행령입니다.', '2-22'],
+  ['m14', '일본은 제1차 세계 대전에 동맹국 측으로 참전하였다.', false, '영일 동맹을 내세워 협상국 측으로 참전했습니다.', '2-8'],
+  ['m14', '만주 사변 이후 일제는 청의 마지막 황제 푸이를 옹립하여 만주국을 세웠다.', true, '만주 사변 1931. 9. 18.', '2-14'],
+  ['m14', '일본은 하와이 진주만을 기습하여 아시아·태평양 전쟁을 일으켰다.', true, '1941년.', '2-14'],
+  ['m14', '미드웨이 해전에서 일본이 승리하면서 전세가 일본에 유리해졌다.', false, '미국이 승리하면서 전세가 연합군에 유리해졌습니다.', '2-14'],
+  ['m15', '1936년 부임한 미나미 총독은 내선일체를 강조하였다.', true, '황국 신민화 정책 강화.', '2-16'],
+  ['m15', '창씨개명은 1945년에 실시되었다.', false, '창씨개명은 1940년입니다.', '2-16'],
+  ['m15', '1941년 소학교의 명칭이 국민학교로 바뀌었다.', true, '‘황국 신민 학교’라는 뜻, 수신 교과 강화.', '2-16'],
+  ['m15', '1940년 동아일보와 조선일보가 폐간되었다.', true, '한국어 신문 폐간.', '2-16'],
+  ['m16', '국가 총동원법은 중일 전쟁 이후인 1938년에 제정되었다.', true, '한국에도 적용되었습니다.', '2-15'],
+  ['m16', '애국반은 100호 단위로 조직된 말단 기구였다.', false, '애국반은 10호(가구) 단위였습니다.', '2-15'],
+  ['m16', '일제는 1943년 징병제, 1944년 학도 지원병 제도를 실시하였다.', false, '반대입니다. 1943년 학도 지원병 제도, 1944년 징병제입니다.', '2-15'],
+  ['m16', '1944년 일제는 여자 정신 근로령을 공포하여 여성들을 군수 공장에서 일하게 하였다.', true, '아시아·태평양 전쟁 막바지.', '2-15'],
+  ['m17', '일·만·한 경제 블록에서 한국은 정밀 공업 지대로 설정되었다.', false, '한국은 기초 공업 지대, 일본 본토가 정밀 공업 지대, 만주는 농업·원료 지대입니다.', '2-23'],
+  ['m17', '남면북양 정책은 남부에 면화, 북부에 양을 기르게 한 정책이다.', true, '일본 방직업자에게 원료를 제공하려는 목적.', '2-23'],
+  ['m17', '조선 농지령은 마름의 횡포를 통제하고 소작료를 크게 낮추었다.', false, '마름의 횡포를 통제하지 않고 지주의 권리를 옹호했으며, 소작료도 여전히 높았습니다.', '2-24'],
+  ['m17', '일제는 미곡 공출제를 실시하여 농가마다 목표량을 정해 쌀을 내놓게 하였다.', true, '식량 배급제도 함께 실시.', '2-24'],
+  ['m18', '1937년 소련은 연해주의 한국인 17만 명 이상을 중앙아시아로 강제 이주시켰다.', true, '오늘날 고려인은 이들의 후손입니다.', '2-27'],
+  ['m18', '한국인의 미주 이주는 1902년 하와이 사탕수수 농장 노동자로 시작되었다.', true, '이후 미국 서부로 재이주.', '2-27'],
+  ['m18', '관동(간토) 대지진은 1937년에 일어났다.', false, '관동 대지진은 1923년입니다.', '2-26'],
+  ['m18', '1941년 미주 한인들은 재미 한족 연합 위원회를 결성하였다.', true, '독립을 위한 외교 활동, 한인 국방 경위대(맹호군).', '2-27'],
+  ['m19', '독립 의군부는 공화정 수립을 목표로 하였다.', false, '독립 의군부는 복벽주의(고종 복위)입니다. 공화정은 대한 광복회입니다.', '2-28'],
+  ['m19', '대한 광복회는 박상진 등이 대구에서 조직하였다.', true, '1915년, 군대식 조직·군자금 모집·친일파 처단.', '2-28'],
+  ['m19', '독립 의군부는 임병찬 등이 조직하였다.', true, '1912년, 각지의 유생을 모아 조직.', '2-28'],
+  ['m20', '삼원보에 경학사를 조직한 인물은 이회영, 이상룡 등이다.', true, '1911년, 신흥 강습소도 세웠습니다.', '2-29'],
+  ['m20', '서전서숙은 연해주 블라디보스토크에 세워진 학교이다.', false, '서전서숙은 북간도에 이상설이 세운 간도 최초의 민족 학교입니다.', '2-29'],
+  ['m20', '권업회는 블라디보스토크 신한촌에서 조직되어 권업신문을 발간하였다.', true, '1911년, 이상설·유인석·이동휘.', '2-29'],
+  ['m20', '동제사는 1912년 상하이에서 신규식 등이 결성하였다.', true, '공화주의 임시 정부 수립 주장.', '2-29'],
+  ['m20', '대조선 국민군단은 박용만이 미국 본토에서 조직하였다.', false, '박용만이 하와이에서 조직하였습니다.', '2-29']
+];
+
 /* Recall — 한국사 : application logic (vanilla JS, no network) */
 (() => {
 'use strict';
@@ -1304,6 +1397,7 @@ const ICON = {
   bookmark: '<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>',
   max: '<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>',
   shuffle: '<path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/>',
+  ox: '<circle cx="7" cy="12" r="4"/><path d="m14 8 8 8"/><path d="m22 8-8 8"/>',
   more: '<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>'
 };
 const ic = (n, s = 18) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[n]}</svg>`;
@@ -1373,6 +1467,15 @@ PERIODS.forEach(p => {
 });
 BPTASKS.push({ id: 'bp:all', mod: null, per: null, period: true, q: '1880년대부터 1945년까지 핵심 사건만으로 전체 흐름을 백지에 재구성하시오.', a: EVENTS.filter(e => e.imp === 3).map(e => `${fmtDate(e)} ${e.t}`).join(' → '), kw: EVENTS.filter(e => e.imp === 3).map(e => e.t.split(/[ ·—(]/)[0]), pg: [] });
 BPTASKS.forEach(t => { ITEMS[t.id] = { ...t, kind: 'bp', a: t.a, q: t.q, type: 'BP' }; });
+const OXS = OXQ.map(([mod, st, tr, exp, pg]) => { const it = { id: `ox:${mod}:${hash(st)}`, kind: 'ox', q: st, a: tr ? 'O' : 'X', truth: tr, exp, mod, per: MOD[mod].per, pg: [pg], type: 'OX' }; ITEMS[it.id] = it; return it; });
+function dateOX(r = R) { // auto O/X from verified event years (skips approximate & supplementary dates)
+  const evs = EVENTS.filter(e => e.p !== 'approx' && e.scope !== 'extra');
+  const e = evs[Math.floor(r() * evs.length)]; const t = r() < 0.5;
+  const id = `oxd:${e.id}:${t ? 1 : 0}`;
+  let st = tfStatement(e, t, r);
+  const it = { id, kind: 'ox', q: st, a: t ? 'O' : 'X', truth: t, exp: `${e.t}: ${fmtDate(e)}`, mod: e.mod, per: e.per, pg: e.pg, type: 'OX', ev: e.id, rel: e.id };
+  ITEMS[id] = it; return it;
+}
 
 function checkAnswer(item, user) {
   const u = norm(user); if (!u) return false;
@@ -1468,7 +1571,7 @@ function buildQueue(minutes, opts = {}) {
 }
 
 // ───────────────────────── UI state & routing ─────────────────────────
-const NAV = [['home', '홈', 'home'], ['timeline', '전체 연표', 'timeline'], ['learn', '개념 학습', 'book'], ['cards', '암기 카드', 'layers'], ['cloze', '빈칸 테스트', 'cloze'], ['drill', '연표 훈련', 'order'], ['exam', '실전 시험', 'exam'], ['errors', '오답 노트', 'err'], ['blank', '백지 복습', 'pen'], ['stats', '학습 분석', 'chart']];
+const NAV = [['home', '홈', 'home'], ['timeline', '전체 연표', 'timeline'], ['learn', '개념 학습', 'book'], ['cards', '암기 카드', 'layers'], ['cloze', '빈칸 테스트', 'cloze'], ['ox', 'OX 퀴즈', 'ox'], ['drill', '연표 훈련', 'order'], ['exam', '실전 시험', 'exam'], ['errors', '오답 노트', 'err'], ['blank', '백지 복습', 'pen'], ['stats', '학습 분석', 'chart']];
 const UI = {
   tl: { per: '', cat: '', q: '', weak: false, hideT: false, hideD: false, open: null, horiz: true },
   fc: null, cz: null, dr: { mode: 'five' }, ex: { cfg: { n: 20, pers: [], diff: 'mid', time: 20, weak: false, wrong: false } },
@@ -1508,7 +1611,7 @@ function render() {
   route = parseHash();
   if (route.v !== 'cards') document.body.classList.remove('focus');
   shell();
-  const views = { home: vHome, timeline: vTimeline, learn: vLearn, cards: vCards, cloze: vCloze, drill: vDrill, exam: vExam, errors: vErrors, blank: vBlank, stats: vStats };
+  const views = { home: vHome, timeline: vTimeline, learn: vLearn, cards: vCards, cloze: vCloze, ox: vOX, drill: vDrill, exam: vExam, errors: vErrors, blank: vBlank, stats: vStats };
   const page = $('#page');
   page.className = 'page' + (['timeline', 'stats', 'exam'].includes(route.v) ? ' wide' : '');
   page.innerHTML = views[route.v]();
@@ -1539,6 +1642,7 @@ function vHome() {
     ${qa('복습 예정 카드', `${due}장이 기다리고 있어요`, 'dueCards')}
     ${qa('가장 약한 개념', weak ? `${weak.m.n}. ${weak.m.t} · 오답률 ${Math.round(weak.rate * 100)}%` : '오답 기록이 쌓이면 표시돼요', 'weakest', weak ? `data-m="${weak.m.id}"` : '')}
     ${qa('연도 집중 연습', '사건 ↔ 연도 카드만', 'dateDrill')}
+    ${qa('OX 퀴즈', `${OXS.length}문항 · 헷갈리는 내용 가려내기`, 'nav', 'data-k="ox"')}
     ${qa('모의고사', '20문항 · 20분', 'quickExam')}
     ${qa('백지 복습', '전체 흐름 재구성', 'nav', 'data-k="blank"')}
   </div></section>
@@ -1794,6 +1898,47 @@ function vCloze() {
 }
 const fillCloze = z => { let k = 0; return esc(z.text).replace(/\{([^}]+)\}/g, () => `<b style="color:var(--blue)">${esc(z.blanks[k++].a)}</b>`); };
 
+
+// ───────────────────────── OX QUIZ ─────────────────────────
+function initOX(opt = {}) {
+  const O = UI.ox = Object.assign({ mod: '', per: '', n: 20, fb: 'now', dates: false, i: 0, ans: {}, done: false, started: true }, opt);
+  if (O.ids) { O.list = O.ids; }
+  else {
+    let pool = OXS.filter(x => (!O.mod || x.mod === O.mod) && (!O.per || x.per === O.per)).map(x => x.id);
+    let list = shuffle(pool).slice(0, O.n === 0 ? pool.length : O.n);
+    if (O.dates) { const extra = Math.max(3, Math.round(list.length * 0.3)); const r = rng(Date.now() % 1e9); for (let k = 0; k < extra; k++) { const d = dateOX(r); if ((!O.per || d.per === O.per) && (!O.mod || d.mod === O.mod) && !list.includes(d.id)) list.push(d.id); } list = shuffle(list); }
+    O.list = list;
+  }
+  O.t0 = O.qt = Date.now();
+}
+function vOX() {
+  if (!UI.ox) UI.ox = { mod: '', per: '', n: 20, fb: 'now', dates: false, started: false };
+  const O = UI.ox;
+  let h = `<h1 class="h-sec">OX 퀴즈</h1><p class="cap" style="margin-top:8px">교과서와 대조해 만든 문장 ${OXS.length}개. 틀린 문장(X)은 어디가 틀렸는지 해설로 알려 줍니다. 키보드 <span class="kbd">O</span>/<span class="kbd">X</span> 또는 <span class="kbd">←</span>/<span class="kbd">→</span>.</p>
+  <details id="oxPanel" class="card pearl" style="margin-top:16px" ${O.panelOpen || !(O.started && O.list && !O.done) ? 'open' : ''}><summary class="cap" style="margin-bottom:10px">범위·방식 설정 ${O.started && O.list ? `· ${O.mod ? MOD[O.mod].t : '전체 모듈'} · ${O.fb === 'now' ? '바로 확인' : '끝나고 채점'}` : ''}</summary><div class="row">
+    <select class="inp" style="max-width:260px" data-in="oxMod" aria-label="모듈"><option value="">전체 모듈</option>${MODULES.map(m => `<option value="${m.id}" ${O.mod === m.id ? 'selected' : ''}>${m.n}. ${m.t} (${OXS.filter(x => x.mod === m.id).length})</option>`).join('')}</select>
+    <select class="inp" style="max-width:220px" data-in="oxPer" aria-label="시기"><option value="">전체 시기</option>${PERIODS.map(p => `<option value="${p.id}" ${O.per === p.id ? 'selected' : ''}>${p.range}</option>`).join('')}</select>
+    <div class="seg">${[10, 20, 0].map(n => `<button class="${O.n === n ? 'on' : ''}" data-a="oxCfg" data-k="n" data-v="${n}">${n ? n + '문항' : '전부'}</button>`).join('')}</div>
+    <div class="seg"><button class="${O.fb === 'now' ? 'on' : ''}" data-a="oxCfg" data-k="fb" data-v="now">바로 확인</button><button class="${O.fb === 'later' ? 'on' : ''}" data-a="oxCfg" data-k="fb" data-v="later">끝나고 채점</button></div>
+    <button class="chip ${O.dates ? 'on' : ''}" data-a="oxDates">연도 OX 섞기</button>
+  </div><div class="row" style="margin-top:12px"><button class="btn" data-a="oxStart">${O.started ? '새로 시작' : '시작'}</button></div></details>`;
+  if (!O.started || !O.list) return h;
+  if (!O.list.length) return h + `<div class="empty">조건에 맞는 문항이 없습니다.</div>`;
+  if (O.done) {
+    const ok = O.list.filter(id => O.ans[id] === ITEMS[id].a), wrong = O.list.filter(id => O.ans[id] !== ITEMS[id].a);
+    return h + `<div class="card" style="margin-top:20px"><h2 class="h-sub">결과 ${ok.length} / ${O.list.length}</h2><p class="cap">${pct(ok.length, O.list.length)}% · ${fmtDur(Date.now() - O.t0)}</p><div class="row" style="margin-top:12px">${wrong.length ? `<button class="btn" data-a="oxRetry">틀린 ${wrong.length}문항 다시</button>` : ''}<button class="btn ghost" data-a="oxStart">새로 시작</button></div></div>
+    ${O.list.map(id => oxReview(id, O.ans[id])).join('')}`;
+  }
+  const id = O.list[O.i], it = ITEMS[id], a = O.ans[id], shown = O.fb === 'now' && a !== undefined;
+  return h + `<div class="row" style="margin-top:22px"><span class="cap">${O.i + 1} / ${O.list.length}</span><span class="sp"></span>${it.mod ? `<span class="tag">${MOD[it.mod].n}. ${MOD[it.mod].t}</span>` : ''}</div><div class="prog" style="margin:8px 0 18px"><i style="width:${O.i / O.list.length * 100}%"></i></div>
+  <div class="card" style="padding:34px"><p style="font-size:24px;font-weight:600;line-height:1.45;letter-spacing:-.02em;margin:0">${esc(it.q)}</p>
+  <div class="grid g2" style="margin-top:26px">${['O', 'X'].map(v => { const cls = shown ? (v === it.a ? 'ok' : v === a ? 'bad' : '') : a === v ? 'on' : ''; return `<button class="opt ${cls}" data-a="oxAns" data-v="${v}" ${shown ? 'disabled' : ''} style="justify-content:center;font-size:40px;font-weight:600;min-height:110px" aria-label="${v === 'O' ? '맞다' : '틀리다'}"><span style="color:${v === 'O' ? 'var(--blue)' : 'var(--bad)'};font-family:-apple-system,'SF Pro Display',system-ui,sans-serif">${v}</span></button>`; }).join('')}</div>
+  ${shown ? `<div style="margin-top:18px" class="${a === it.a ? 'ok' : 'bad'}"><b>${a === it.a ? '정답!' : '오답'} — 이 문장은 ${it.truth ? '맞는 문장(O)' : '틀린 문장(X)'}입니다.</b></div><p style="margin:8px 0">${esc(it.exp)}</p><p class="tiny">${pgTxt(it.pg)}${it.mod ? ` · <a href="#/learn/${it.mod}">개념 보기</a>` : ''}</p>` : ''}
+  <div class="row" style="margin-top:18px">${O.i > 0 && O.fb === 'later' ? '<button class="btn plain" data-a="oxPrev">이전</button>' : ''}<span class="sp"></span>${shown || (O.fb === 'later' && a !== undefined) ? `<button class="btn" data-a="oxNext">${O.i + 1 < O.list.length ? '다음 (Enter)' : (O.fb === 'later' ? '제출하고 채점' : '결과 보기')}</button>` : ''}</div></div>`;
+}
+function oxReview(id, a) { const it = ITEMS[id], ok = a === it.a; return `<div class="card" style="margin-top:10px"><div class="row"><span class="tag ${ok ? 'ok' : 'bad'}">${ok ? '정답' : '오답'}</span><span class="tag">정답 ${it.a}</span>${a ? `<span class="tag">내 답 ${a}</span>` : '<span class="tag">무응답</span>'}</div><p style="margin:8px 0"><b>${esc(it.q)}</b></p><p class="cap">${esc(it.exp)}</p></div>`; }
+function oxGrade(id) { const O = UI.ox, it = ITEMS[id], a = O.ans[id]; grade(id, a === it.a ? 3 : 1, { ua: a || '', kind: 'ox', rt: Date.now() - O.qt }); if (id.startsWith('oxd:')) { S.xitems = S.xitems || {}; S.xitems[id] = it; } }
+
 // ───────────────────────── DRILL ─────────────────────────
 const DRILL_MODES = [['five', '5개 배열'], ['ten', '10개 배열'], ['period', '시기 전체 재구성'], ['match', '연도 맞추기'], ['year', '빠진 연도 쓰기'], ['first', '먼저 일어난 사건'], ['insert', '빠진 사건 끼워 넣기']];
 const cmpEv = (a, b) => a.y !== b.y ? a.y - b.y : (a.m && b.m && a.m !== b.m) ? a.m - b.m : (a.m && b.m && a.d && b.d) ? a.d - b.d : 0; // 0 = order unknown/equal
@@ -1870,7 +2015,8 @@ function genExam(cfg) {
     const k = bag[Math.floor(r() * bag.length)] || 'mc'; let q = null;
     if (k === 'mc') q = mkMC(cards.filter(c => !['CE', 'EC'].includes(c.type)), 'mc');
     if (k === 'cause') q = mkMC(cards.filter(c => ['CE', 'EC', 'PP', 'PC'].includes(c.type)), 'cause');
-    if (k === 'tf') { const e = evs[Math.floor(r() * evs.length)]; const t = r() < 0.5; q = { kind: 'tf', ev: e.id, mod: e.mod, per: e.per, q: tfStatement(e, t, r), o: ['O (옳다)', 'X (옳지 않다)'], a: t ? 0 : 1, e: `${e.t}: ${fmtDate(e)}`, pg: e.pg, card: `ev:${e.id}:d` }; }
+    if (k === 'tf' && r() < 0.6) { const o = shuffle(OXS.filter(x => pers.includes(x.per) && !qs.some(y => y.ox === x.id)), r)[0]; if (o) q = { kind: 'tf', ox: o.id, card: o.id, mod: o.mod, per: o.per, q: o.q, o: ['O (옳다)', 'X (옳지 않다)'], a: o.truth ? 0 : 1, e: o.exp, pg: o.pg }; }
+    if (k === 'tf' && !q) { const e = evs[Math.floor(r() * evs.length)]; const t = r() < 0.5; q = { kind: 'tf', ev: e.id, mod: e.mod, per: e.per, q: tfStatement(e, t, r), o: ['O (옳다)', 'X (옳지 않다)'], a: t ? 0 : 1, e: `${e.t}: ${fmtDate(e)}`, pg: e.pg, card: `ev:${e.id}:d` }; }
     if (k === 'multi') { const es = distinctPick(evs, 4); if (es.length === 4) { const truth = es.map(() => r() < 0.5); if (!truth.some(Boolean)) truth[0] = true; q = { kind: 'multi', mod: es[0].mod, per: es[0].per, q: '다음 중 옳은 것을 모두 고르시오.', o: es.map((e, i) => tfStatement(e, truth[i], r)), a: truth.map((t, i) => t ? i : -1).filter(i => i >= 0), e: es.map(e => `${e.t}: ${fmtDate(e)}`).join(' / '), pg: es.flatMap(e => e.pg) }; } }
     if (k === 'doc') { const d = shuffle(DOCQ.filter(d => pers.includes(MOD[d.mod].per) && !usedDoc.has(d.id)), r)[0]; if (d) { usedDoc.add(d.id); const o = shuffle(d.o.map((t, i) => ({ t, i })), r); q = { kind: 'doc', mod: d.mod, per: MOD[d.mod].per, src: d.src, q: d.q, o: o.map(x => x.t), a: o.findIndex(x => x.i === d.a), e: d.e, pg: MOD[d.mod].pg }; } }
     if (k === 'graph') { const g = shuffle(GRAPHQ.filter(g => pers.includes(MOD[g.mod].per) && !qs.some(x => x.gid === g.id)), r)[0]; if (g) { const o = shuffle(g.o.map((t, i) => ({ t, i })), r); q = { kind: 'graph', gid: g.id, mod: g.mod, per: MOD[g.mod].per, q: g.q, o: o.map(x => x.t), a: o.findIndex(x => x.i === g.a), e: g.e, pg: [] }; } }
@@ -1975,10 +2121,10 @@ function vErrors() {
   if (E.f === 'done') l = l.filter(errMastered);
   if (E.mod) l = l.filter(e => ITEMS[e.id].mod === E.mod);
   if (E.per) l = l.filter(e => ITEMS[e.id].per === E.per);
-  if (E.type) l = l.filter(e => (ITEMS[e.id].kind === 'card' ? TYPE_GROUP[ITEMS[e.id].type] : ITEMS[e.id].kind === 'cloze' ? '빈칸' : '시험') === E.type);
+  if (E.type) l = l.filter(e => (ITEMS[e.id].kind === 'card' ? TYPE_GROUP[ITEMS[e.id].type] : ITEMS[e.id].kind === 'cloze' ? '빈칸' : ITEMS[e.id].kind === 'ox' ? 'OX' : '시험') === E.type);
   if (E.year) l = l.filter(e => { const it = ITEMS[e.id]; const ev = it.rel || it.ev; return ev ? String(EV[ev]?.y) === E.year : (it.q + it.a).includes(E.year); });
   l.sort((a, b) => b.last - a.last);
-  const groups = [...new Set(Object.values(TYPE_GROUP)), '빈칸', '시험'];
+  const groups = [...new Set(Object.values(TYPE_GROUP)), '빈칸', 'OX', '시험'];
   return `<h1 class="h-sec">오답 노트</h1><p class="cap" style="margin-top:8px">틀린 답은 모두 자동 기록됩니다. 서로 다른 3일에 걸쳐 맞혀야 ‘극복’으로 바뀝니다.</p>
   <div class="row" style="margin-top:16px"><button class="btn" data-a="errRetry" ${Object.values(S.err).filter(e => !errMastered(e) && ITEMS[e.id]).length ? '' : 'disabled'}>틀린 문제만 다시 풀기</button><span class="cap">전체 ${total} · 미극복 ${Object.values(S.err).filter(e => !errMastered(e)).length}</span></div>
   <div class="card pearl" style="margin-top:16px"><div class="chips">${[['open', '아직 못 외움'], ['all', '전체'], ['rep', '반복 오답'], ['recent', '최근 3일'], ['done', '극복함']].map(([k, v]) => `<button class="chip ${E.f === k ? 'on' : ''}" data-a="erF" data-k="${k}">${v}</button>`).join('')}</div>
@@ -1986,7 +2132,7 @@ function vErrors() {
   <select class="inp" style="max-width:200px" data-in="erPer"><option value="">모든 시기</option>${PERIODS.map(p => `<option value="${p.id}" ${E.per === p.id ? 'selected' : ''}>${p.range}</option>`).join('')}</select>
   <select class="inp" style="max-width:160px" data-in="erType"><option value="">모든 유형</option>${groups.map(g => `<option ${E.type === g ? 'selected' : ''}>${g}</option>`).join('')}</select>
   <input class="inp" style="max-width:110px" placeholder="연도" inputmode="numeric" value="${esc(E.year || '')}" data-in="erYear" aria-label="연도 필터"></div></div>
-  <div style="margin-top:16px">${l.length ? l.map(e => { const it = ITEMS[e.id]; const r = S.rec[e.id] || {}; return `<div class="card" style="margin-bottom:10px"><div class="row"><span class="tag ${errMastered(e) ? 'ok' : 'bad'}">${errMastered(e) ? '극복함' : `오답 ${e.count}회`}</span><span class="tag">${it.kind === 'card' ? TYPE_NAMES[it.type] : it.kind === 'cloze' ? '빈칸' : '시험 · ' + (KIND_NAMES[it.type] || '')}</span>${it.mod ? `<a class="tag" href="#/learn/${it.mod}">${MOD[it.mod].t}</a>` : ''}<span class="sp"></span><span class="tiny">처음 ${fmtDay(e.first)} · 최근 ${fmtDay(e.last)}</span></div>
+  <div style="margin-top:16px">${l.length ? l.map(e => { const it = ITEMS[e.id]; const r = S.rec[e.id] || {}; return `<div class="card" style="margin-bottom:10px"><div class="row"><span class="tag ${errMastered(e) ? 'ok' : 'bad'}">${errMastered(e) ? '극복함' : `오답 ${e.count}회`}</span><span class="tag">${it.kind === 'card' ? TYPE_NAMES[it.type] : it.kind === 'cloze' ? '빈칸' : it.kind === 'ox' ? 'OX 퀴즈' : '시험 · ' + (KIND_NAMES[it.type] || '')}</span>${it.mod ? `<a class="tag" href="#/learn/${it.mod}">${MOD[it.mod].t}</a>` : ''}<span class="sp"></span><span class="tiny">처음 ${fmtDay(e.first)} · 최근 ${fmtDay(e.last)}</span></div>
   <p style="margin:10px 0 4px"><b>${esc(it.kind === 'cloze' ? it.text.replace(/\{([^}|]+)[^}]*\}/g, '[    ]') : it.q)}</b></p><p class="bad" style="margin:2px 0">내 답: ${esc(e.ua || '(무응답/스스로 ‘다시’ 평가)')}</p><p style="margin:2px 0">정답: <b>${esc(it.a)}</b></p>${it.exp ? `<p class="cap" style="margin:4px 0">${esc(String(it.exp).slice(0, 220))}</p>` : ''}
   <p class="tiny">마지막 복습 ${r.last ? fmtDay(r.last) : '—'} · 다음 복습 ${r.due ? relDue(r.due) : '—'} · 상태 ${STATES[stateOf(e.id)]} · 극복 진행 ${(e.okDays || []).length}/3일</p></div>`; }).join('') : '<div class="empty">해당하는 오답이 없습니다.</div>'}</div>`;
 }
@@ -2050,7 +2196,7 @@ function coverage() {
   const missing = facts.filter(x => !ITEMS[`f:${x.c.id}:${hash(x.q)}`]).map(x => x.q);
   const modsOK = MODULES.filter(m => m.feyn.length && m.concepts.length && CLOZES.filter(z => z.mod === m.id).length >= 3 && m.recall.length >= 2).length;
   const tf = 'TF·복수정답·순서·연결·비교: 연표·표에서 매 시험 자동 생성';
-  return { missing, rows: [['교과서 사건(연표 반영 기준)', EVENTS.length], ['구현된 사건', `${EVENTS.length} (본문 ${EVENTS.filter(e => e.scope === 'text').length} · 연표·자료 ${EVENTS.filter(e => e.scope === 'table').length} · 보충 ${EVENTS.filter(e => e.scope === 'extra').length})`], ['개념(목표 64)', `${CONCEPTS.length}`], ['학습 모듈 4단계 완비', `${modsOK} / 20`], ['원자 사실', facts.length], ['암기 카드', `${CARDS.length} (사실 ${CARDS.filter(c => c.id.startsWith('f:')).length} · 연도 ${CARDS.filter(c => c.id.startsWith('ev:')).length} · 암기법 ${CARDS.filter(c => c.id.startsWith('mn:')).length})`], ['빈칸 문항', CLOZES.length], ['시험 문항 풀', `카드 기반 객관식 ${CARDS.filter(c => !c.self).length} + 사료 ${DOCQ.length} + 그래프 ${GRAPHQ.length} + 서술 ${BPTASKS.filter(t => t.mod).length} (${tf})`], ['백지 복습 과제', BPTASKS.length], ['암기법', `${MNEMONICS.length} / 30`], ['비교표', `${COMPARE.length} / 9`], ['지식 지도', `${VISUALS.length} / 13`]] };
+  return { missing, rows: [['교과서 사건(연표 반영 기준)', EVENTS.length], ['구현된 사건', `${EVENTS.length} (본문 ${EVENTS.filter(e => e.scope === 'text').length} · 연표·자료 ${EVENTS.filter(e => e.scope === 'table').length} · 보충 ${EVENTS.filter(e => e.scope === 'extra').length})`], ['개념(목표 64)', `${CONCEPTS.length}`], ['학습 모듈 4단계 완비', `${modsOK} / 20`], ['원자 사실', facts.length], ['암기 카드', `${CARDS.length} (사실 ${CARDS.filter(c => c.id.startsWith('f:')).length} · 연도 ${CARDS.filter(c => c.id.startsWith('ev:')).length} · 암기법 ${CARDS.filter(c => c.id.startsWith('mn:')).length})`], ['빈칸 문항', CLOZES.length], ['OX 문항', `${OXS.length} (교과서 대조 문장) + 연도 OX 자동 생성`], ['시험 문항 풀', `카드 기반 객관식 ${CARDS.filter(c => !c.self).length} + 사료 ${DOCQ.length} + 그래프 ${GRAPHQ.length} + 서술 ${BPTASKS.filter(t => t.mod).length} (${tf})`], ['백지 복습 과제', BPTASKS.length], ['암기법', `${MNEMONICS.length} / 30`], ['비교표', `${COMPARE.length} / 9`], ['지식 지도', `${VISUALS.length} / 13`]] };
 }
 
 // ───────────────────────── SEARCH / SETTINGS ─────────────────────────
@@ -2125,6 +2271,14 @@ const A = {
   czPrev: () => { UI.cz.i--; render(); },
   czRetry: () => { const Z = UI.cz; const wrong = Z.list.filter(id => Z.res[id] === false); initCz({ mod: Z.mod, mode: Z.mode, fb: Z.fb, ids: wrong }); render(); },
   czNew: () => { initCz({ mod: UI.cz.mod, mode: UI.cz.mode, fb: UI.cz.fb }); render(); },
+  // ox
+  oxCfg: el => { const v = el.dataset.v; UI.ox[el.dataset.k] = isNaN(v) ? v : Number(v); render(); },
+  oxDates: () => { UI.ox.dates = !UI.ox.dates; render(); },
+  oxStart: () => { const O = UI.ox; O.panelOpen = false; initOX({ mod: O.mod, per: O.per, n: O.n, fb: O.fb, dates: O.dates }); render(); },
+  oxAns: el => { const O = UI.ox, id = O.list[O.i]; if (O.fb === 'now' && O.ans[id] !== undefined) return; O.ans[id] = el.dataset.v; if (O.fb === 'now') oxGrade(id); render(); },
+  oxNext: () => { const O = UI.ox; if (O.i + 1 < O.list.length) { O.i++; O.qt = Date.now(); } else { if (O.fb === 'later') O.list.forEach(oxGrade); O.done = true; } render(); },
+  oxPrev: () => { UI.ox.i--; render(); },
+  oxRetry: () => { const O = UI.ox; const wrong = O.list.filter(id => O.ans[id] !== ITEMS[id].a); initOX({ mod: O.mod, per: O.per, n: O.n, fb: O.fb, dates: O.dates, ids: wrong }); render(); },
   // drill
   drMode: el => { newDrill(el.dataset.k, UI.dr.per); render(); },
   drNew: () => { newDrill(); render(); },
@@ -2160,7 +2314,7 @@ const A = {
   exQuitYes: () => { closeMore(); S.exam = null; save(); render(); },
   // errors
   erF: el => { UI.er.f = el.dataset.k; render(); },
-  errRetry: () => { const ids = Object.values(S.err).filter(e => !errMastered(e) && ITEMS[e.id]).map(e => e.id); const cards = ids.filter(id => ITEMS[id].kind === 'card'); const cz = ids.filter(id => ITEMS[id].kind === 'cloze'); if (cards.length >= cz.length && cards.length) { initFc({ session: false, filter: 'all' }); UI.fc.list = shuffle(cards); go('cards'); } else if (cz.length) { initCz({ ids: shuffle(cz) }); go('cloze'); } else { const xs = ids.map(id => ITEMS[id]).filter(Boolean); initFc({}); UI.fc.list = xs.filter(x => x.kind === 'card').map(x => x.id); if (!UI.fc.list.length) { toast('시험·비교표 오답은 해당 화면에서 다시 풀 수 있어요.'); return; } go('cards'); } },
+  errRetry: () => { const ids = Object.values(S.err).filter(e => !errMastered(e) && ITEMS[e.id]).map(e => e.id); const cards = ids.filter(id => ITEMS[id].kind === 'card'); const cz = ids.filter(id => ITEMS[id].kind === 'cloze'); const oxs = ids.filter(id => ITEMS[id].kind === 'ox'); if (oxs.length > Math.max(cards.length, cz.length)) { initOX({ ids: shuffle(oxs) }); go('ox'); } else if (cards.length >= cz.length && cards.length) { initFc({ session: false, filter: 'all' }); UI.fc.list = shuffle(cards); go('cards'); } else if (cz.length) { initCz({ ids: shuffle(cz) }); go('cloze'); } else { const xs = ids.map(id => ITEMS[id]).filter(Boolean); initFc({}); UI.fc.list = xs.filter(x => x.kind === 'card').map(x => x.id); if (!UI.fc.list.length) { toast('시험·비교표 오답은 해당 화면에서 다시 풀 수 있어요.'); return; } go('cards'); } },
   // blank
   bpBack: () => { UI.bp = { id: null }; render(); },
   bpTimer: () => { UI.bp.timer = !UI.bp.timer; UI.bp.t0 = Date.now(); render(); },
@@ -2191,6 +2345,7 @@ function toggleFocus() { const on = document.body.classList.toggle('focus'); if 
 
 // inputs
 const IN = {
+  oxMod: el => { UI.ox.mod = el.value; render(); }, oxPer: el => { UI.ox.per = el.value; render(); },
   tlq: el => { UI.tl.q = el.value; rerenderKeepFocus(el); },
   tlper: el => { UI.tl.per = el.value; render(); }, tlcat: el => { UI.tl.cat = el.value; render(); },
   tlyear: el => { if (el.value) A.jumpYear({ dataset: { y: el.value } }); el.value = ''; },
@@ -2223,8 +2378,8 @@ document.addEventListener('click', e => {
   if (!el || el.disabled) return;
   const f = A[el.dataset.a]; if (f) { if (el.tagName === 'A') e.preventDefault(); f(el, e); }
 });
-document.addEventListener('input', e => { const k = e.target.dataset?.in; if (k && IN[k] && !['tlper', 'tlcat', 'tlyear', 'cmpT', 'fcMod', 'fcType', 'czMod', 'drPer', 'erMod', 'erPer', 'erType', 'examDate', 'import', 'bpKw', 'drSel'].includes(k)) IN[k](e.target); if (e.target.id === 'q') doSearch(e.target.value); });
-document.addEventListener('change', e => { const k = e.target.dataset?.in; if (k && IN[k] && ['tlper', 'tlcat', 'tlyear', 'cmpT', 'fcMod', 'fcType', 'czMod', 'drPer', 'erMod', 'erPer', 'erType', 'examDate', 'import', 'bpKw', 'drSel'].includes(k)) IN[k](e.target); });
+document.addEventListener('input', e => { const k = e.target.dataset?.in; if (k && IN[k] && !['tlper', 'tlcat', 'tlyear', 'cmpT', 'fcMod', 'fcType', 'czMod', 'drPer', 'oxMod', 'oxPer', 'erMod', 'erPer', 'erType', 'examDate', 'import', 'bpKw', 'drSel'].includes(k)) IN[k](e.target); if (e.target.id === 'q') doSearch(e.target.value); });
+document.addEventListener('change', e => { const k = e.target.dataset?.in; if (k && IN[k] && ['tlper', 'tlcat', 'tlyear', 'cmpT', 'fcMod', 'fcType', 'czMod', 'drPer', 'oxMod', 'oxPer', 'erMod', 'erPer', 'erType', 'examDate', 'import', 'bpKw', 'drSel'].includes(k)) IN[k](e.target); });
 document.addEventListener('keydown', e => {
   const tag = e.target.tagName; const typing = ['INPUT', 'TEXTAREA', 'SELECT'].includes(tag);
   if (e.key === 'Escape') { if ($('#modal').classList.contains('on')) closeMore(); else if (document.body.classList.contains('focus')) toggleFocus(); $('#sres')?.classList.remove('on'); return; }
@@ -2239,10 +2394,17 @@ document.addEventListener('keydown', e => {
     else if (e.key === 'b' || e.key === 'B') { const id = UI.fc.list[UI.fc.i]; if (id) A.book({ dataset: { id } }); }
     return;
   }
+  if (route.v === 'ox' && UI.ox?.list && !UI.ox.done && !typing) {
+    const k = e.key.toLowerCase();
+    if (k === 'o' || e.key === 'ArrowLeft') { e.preventDefault(); A.oxAns({ dataset: { v: 'O' } }); return; }
+    if (k === 'x' || e.key === 'ArrowRight') { e.preventDefault(); A.oxAns({ dataset: { v: 'X' } }); return; }
+    if (e.key === 'Enter' && UI.ox.ans[UI.ox.list[UI.ox.i]] !== undefined) { e.preventDefault(); A.oxNext(); return; }
+  }
   if (route.v === 'cloze' && e.key === 'Enter' && e.target.dataset?.in === 'czB') { e.preventDefault(); const nx = $$('[data-in="czB"]')[Number(e.target.dataset.b) + 1]; if (nx) nx.focus(); else (UI.cz.fb === 'now' && UI.cz.res[UI.cz.list[UI.cz.i]] !== undefined ? A.czNext() : A.czSubmit()); }
   if (route.v === 'learn' && e.key === 'Enter' && e.target.classList.contains('blank') && e.target.dataset.z) { e.preventDefault(); A.zCheck({ dataset: { z: e.target.dataset.z } }); }
   if (route.v === 'exam' && S.exam && !S.exam.done && !typing && /^[1-5]$/.test(e.key)) { const q = S.exam.qs[S.exam.i]; if (q.o && Number(e.key) <= q.o.length) { if (q.kind === 'multi') A.exMulti({ dataset: { v: Number(e.key) - 1 } }); else A.exAns({ dataset: { v: Number(e.key) - 1 } }); } }
 });
+document.addEventListener('toggle', e => { if (e.target.id === 'oxPanel' && UI.ox) UI.ox.panelOpen = e.target.open; }, true);
 document.addEventListener('visibilitychange', () => { if (document.hidden) saveNow(); });
 window.addEventListener('hashchange', () => { if (route.v === 'cards' && parseHash().v !== 'cards' && UI.fc?.session) UI.fc = null; render(); window.scrollTo(0, 0); });
 document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && route.v !== 'blank') document.body.classList.remove('focus'); });
